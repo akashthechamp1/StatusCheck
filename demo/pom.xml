@@ -65,5 +65,10 @@
     <artifactId>log4j</artifactId>
     <version>1.2.17</version>
 </dependency>
+<dependency>
+			<groupId>sql</groupId>
+			<artifactId>sql-connector-java</artifactId>
+			<version>5.1.34</version>
+		</dependency>
   </dependencies>
 </project>

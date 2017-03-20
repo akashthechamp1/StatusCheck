@@ -1,7 +1,11 @@
 package com.morningstar.demoprc;
 import java.io.IOException;
-import com.rabbitmq.client.Connection;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import com.rabbitmq.client.ConnectionFactory;
+
 import com.rabbitmq.client.Channel;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -13,7 +17,6 @@ import org.apache.solr.client.solrj.request.CoreAdminRequest;
 import org.apache.solr.client.solrj.response.CoreAdminResponse;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.params.CoreAdminParams.CoreAdminAction;
-import org.junit.runner.RunWith;
 
 
 
@@ -30,7 +33,7 @@ public class improvised1
 							   	  for (int i = 0; i < cores.getCoreStatus().size(); i++) {
 							   		     if(cores.getStatus()==0)
 							   		     {
-							   		    	 
+							   		    	 System.out.println("working well");
 							   		     }
 							   		     else
 							   		     {
@@ -51,7 +54,7 @@ public class improvised1
                  	factory.setPort(5672);
     	
                  		try {
-                 				Connection connection = factory.newConnection();
+                 			com.rabbitmq.client.Connection connection = factory.newConnection();
      
                  			}
                  		catch(Exception e)
@@ -63,13 +66,32 @@ public class improvised1
 		
 		
 		}
+    
+    
+    public void dbCheck() throws ClassNotFoundException, SQLException
+    {
+    	            Class.forName("com.imaginary.sql.msql.MsqlDriver"); 
+    	            String dbURL = "jdbc:jtds:sqlserver://rsmdrdevdb8001";
+    	            String user = "RP-MDR-NONPROD";
+    	            String pass = "rpMdr@2015";
+    	          Connection  conn =  DriverManager.getConnection(dbURL,user,pass);
+    	          if (conn != null) {
+    	        	    System.out.println("Connected");
+    	        	}
+    	          else
+    	          {
+    	        	  System.out.println("erroe");
+    	          }
+    	            
+    }
 	
 	
-	public static void main(String[] args) throws SolrServerException, IOException {
+	public static void main(String[] args) throws SolrServerException, IOException, ClassNotFoundException, SQLException {
 	
 	improvised1 obj = new improvised1();
 	obj.solrStatusCheck();
 	obj.rabitStatusCheck();
+//	obj.dbCheck();
 
 }
 }
