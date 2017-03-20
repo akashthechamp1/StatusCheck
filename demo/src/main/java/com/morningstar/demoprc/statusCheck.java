@@ -2,7 +2,10 @@ package com.morningstar.demoprc;
 import java.io.IOException;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+
 import com.rabbitmq.client.Channel;
+
+import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -14,12 +17,14 @@ import org.apache.solr.client.solrj.response.CoreAdminResponse;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.params.CoreAdminParams.CoreAdminAction;
 import org.junit.runner.RunWith;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 
 public class statusCheck {
 	public CloudSolrClient solrConnectionHandle;
-	
+	private static final Logger log = Logger.getLogger(statusCheck.class);
 	public  void quickStatus(String name[]) throws SolrServerException, IOException {
 		
 		String urlString="http://rsmdrdevap8022:8983/solr";
@@ -27,7 +32,7 @@ public class statusCheck {
 	    QueryResponse resp = solr.query(name[0], new SolrQuery("*:*"));
 		if(resp.getStatus()!=0)
 		{
-			System.out.println(name[0]+" Core is Down");
+			log.error(name[0]+" Core is Down");
 		}
 		  
 		/*	solrConnectionHandle.setDefaultCollection(name[0]);
@@ -59,26 +64,39 @@ public class statusCheck {
 						}
 						catch(Exception e)
 						{
-						System.out.println(e);
+						log.error(e);
 						}
 
 
+        String confFile = "spring-context.xml";
+      	ConfigurableApplicationContext context= new ClassPathXmlApplicationContext(confFile);
+      	RMQConfig m = (RMQConfig) context.getBean("RBConfig");
+      	//System.out.println(m.toString());
+      	//System.out.println(m.getHost());
+      	context.close();
+      	
+      	ConnectionFactory factory = new ConnectionFactory();
+      	factory.setUsername(m.getUserName());
+      	factory.setPassword(m.getPassword());
+      	factory.setVirtualHost(m.getVirtualHost());
+      	factory.setHost(m.getHost());
+      	factory.setPort(m.getPort());
 
-
-	ConnectionFactory factory = new ConnectionFactory();
+	/*ConnectionFactory factory = new ConnectionFactory();
 	factory.setUsername("admin");
 	factory.setPassword("admin123");
 	factory.setVirtualHost("/");
 	factory.setHost("rsmdrdevap8002");
-	factory.setPort(5672);
+	factory.setPort(5672);*/
 	
 	try{
     Connection connection = factory.newConnection();
    // Channel channel = connection.createChannel();
+    log.info("RabbitMQ is up");
 	}
 	catch(Exception e)
 	{
-		System.out.println("rabitmq is down");
+	log.error("RabbitMQ id down");
 	}
     
 
