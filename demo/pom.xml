@@ -41,6 +41,11 @@
     <version>6.4.0</version>
 </dependency>
 <dependency>
+			<groupId>net.sourceforge.jtds</groupId>
+			<artifactId>jtds</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+<dependency>
   <groupId>com.rabbitmq</groupId>
   <artifactId>amqp-client</artifactId>
   <version>3.3.0</version>
@@ -65,10 +70,6 @@
     <artifactId>log4j</artifactId>
     <version>1.2.17</version>
 </dependency>
-<dependency>
-			<groupId>sql</groupId>
-			<artifactId>sql-connector-java</artifactId>
-			<version>5.1.34</version>
-		</dependency>
+
   </dependencies>
 </project>

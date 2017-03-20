@@ -37,7 +37,7 @@ public class improvised1
 							   		     }
 							   		     else
 							   		     {
-							   		    	 
+							   		    	System.out.println("notworking well");
 							   		     }
 							    	    
 							    	  }
@@ -55,7 +55,7 @@ public class improvised1
     	
                  		try {
                  			com.rabbitmq.client.Connection connection = factory.newConnection();
-     
+                 			System.out.println("rabitmq is up");
                  			}
                  		catch(Exception e)
                  			{
@@ -70,19 +70,12 @@ public class improvised1
     
     public void dbCheck() throws ClassNotFoundException, SQLException
     {
-    	            Class.forName("com.imaginary.sql.msql.MsqlDriver"); 
-    	            String dbURL = "jdbc:jtds:sqlserver://rsmdrdevdb8001";
-    	            String user = "RP-MDR-NONPROD";
-    	            String pass = "rpMdr@2015";
-    	          Connection  conn =  DriverManager.getConnection(dbURL,user,pass);
-    	          if (conn != null) {
-    	        	    System.out.println("Connected");
-    	        	}
-    	          else
-    	          {
-    	        	  System.out.println("erroe");
-    	          }
-    	            
+    	Class.forName("net.sourceforge.jtds.jdbc.Driver");
+    	Connection conn = DriverManager.getConnection("jdbc:jtds:sqlserver://rsmdrdevdb8001;user=RP-MDR-NONPROD;password=rpMdr@2015;database=MDR_EntitlementData");            
+    	if(conn!=null)
+    	{
+    		System.out.println("up");
+    	}
     }
 	
 	
@@ -91,7 +84,7 @@ public class improvised1
 	improvised1 obj = new improvised1();
 	obj.solrStatusCheck();
 	obj.rabitStatusCheck();
-//	obj.dbCheck();
+	obj.dbCheck();
 
 }
 }
