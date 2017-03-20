@@ -1,2 +1,7 @@
 
-INFO	2017-03-20 11:47:59,577	0	com.morningstar.demoprc.statusCheck	[main]	RabbitMQ is up
+INFO	2017-03-17 16:00:25,779	1	com.morningstar.Status.com.morningstar.Status.StatusCheck	[main]	TextMessage
+INFO	2017-03-17 16:01:24,563	0	com.morningstar.Status.com.morningstar.Status.StatusCheck	[main]	RabbitMQ is Up
+INFO	2017-03-17 17:37:03,768	0	com.morningstar.Status.com.morningstar.Status.StatusCheck	[main]	RabbitMQ is Up
+INFO	2017-03-17 17:45:16,205	0	com.morningstar.Status.com.morningstar.Status.StatusCheck	[main]	RabbitMQ is Up
+INFO	2017-03-20 11:06:14,234	0	com.morningstar.Status.com.morningstar.Status.StatusCheck	[main]	RabbitMQ is Up
+INFO	2017-03-20 11:09:23,878	0	com.morningstar.Status.com.morningstar.Status.StatusCheck	[main]	RabbitMQ is Up
